@@ -9,8 +9,8 @@ class Wheel:
         self.center_x = 349
         self.center_y = 349
 
-    def rotate(self, angle):
-        self.angle = (self.angle + angle)%360
+    def change_angle(self, angle):
+        self.angle = angle % 360
         self.surface = pygame.transform.rotate(pygame.image.load(image_wheel).convert_alpha(), self.angle)
         self.center_x, self.center_y = self.surface.get_rect().center
 
@@ -35,7 +35,7 @@ class windowManager:
         pygame.display.set_caption(title)
         self.window.blit(self.fond_roulette, (0,0))
         self.window.blit(self.fond_sidemenu, (768,0))
-        self.wheel.rotate(360 / 32)
+        self.wheel.change_angle(360 / 32)
         self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y))
         self.window.blit(self.arrow, (710,359))
         pygame.display.flip()
@@ -46,13 +46,11 @@ class windowManager:
         init_angle = self.wheel.angle
         end_angle = (self.wheel.angle + 360/16)%360
         positions = numpy.linspace(init_angle, end_angle + 4 *360, nbRot)
-
-
         for i in range(1, nbRot):
             self.window.blit(self.fond_roulette, (0,0))
-            self.wheel.rotate(positions[i])
+            self.wheel.change_angle(positions[i])
             self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y))
             self.window.blit(self.arrow, (710,359))
             pygame.display.flip()
-            pygame.time.wait(10 + (15 * i)//nbRot)
+            pygame.time.wait(5 + (5* i**2)//nbRot)
 
