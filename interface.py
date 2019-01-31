@@ -44,7 +44,7 @@ class windowManager:
 
         nbRot = 40
         init_angle = self.wheel.angle
-        end_angle = (self.wheel.angle + 360/16)%360
+        end_angle = (self.wheel.angle + 360/16)%360 # à changer en random (PRNG)
         positions = numpy.linspace(init_angle, end_angle + 4 *360, nbRot)
         for i in range(1, nbRot):
             self.window.blit(self.fond_roulette, (0,0))

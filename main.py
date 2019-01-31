@@ -19,8 +19,8 @@ def mainLoop():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        else:
-            eventManager.manageEvent(event)
+            else:
+                eventManager.manageEvent(event)
         
     print("Fin")
 
