@@ -48,7 +48,7 @@ def test():
     numbers1 = prng.next32()
     print("Sortie 1 : \n{}\n".format(numbers1))
 
-    predictions = findNext(numbers1, 32)
+    predictions = predictLFSR(numbers1, 32)
     print("Predictions : \n{}\n".format(predictions))
     numbers2 = prng.next32()
     print("Sortie 2 : \n{}\n".format(numbers2))
