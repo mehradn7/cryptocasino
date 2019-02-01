@@ -2,7 +2,7 @@
 import pygame
 import events
 import interface
-
+# import randomNumber
 
 def mainLoop():
     print("Test")
@@ -28,3 +28,7 @@ def mainLoop():
 if __name__ == "__main__":
     # execute only if run as a script
     mainLoop()
+    # prng = randomNumber.PRNG("lfsr")
+    # for i in range(4):
+    #     a = prng.randomNumber_4bits()
+    #     print(randomNumber.intToBits(a, 4))
