@@ -1,4 +1,5 @@
-""""Implementation inspirée de wikipédia"""
+import lfsr
+""""Implementation inspirée de wikipédia et https://www.codeproject.com/Articles/11646/Implementation-of-Berlekamp-Massey-Algorithm"""
 
 def BerlekampMasseyAlgorithm(stream):
     N = len(stream)
@@ -18,7 +19,6 @@ def BerlekampMasseyAlgorithm(stream):
             d ^= C[i] & S[n-i]
         # discrepancy is zero; annihilation continues
         if d==1:
-            print("a")
             T = [C[i] for i in range(len(C))]
             for i in range (N-n+m):
                 C[i+n-m] ^= B[i]
@@ -29,8 +29,28 @@ def BerlekampMasseyAlgorithm(stream):
     return L, C
 
 
+def predictLFSR(stream, n):
+    L, C = BerlekampMasseyAlgorithm(stream)
+    N = len(stream)
+    state = stream[N-L:]
+    predictions = []
+    for i in range (n):
+        nextValue = 0
+        for j in range(L): 
+            nextValue ^= C[j] & state[j]
+        predictions.append(nextValue)
+        state.append(nextValue)
+        state = state[1:]
+    return predictions
 
-stream = [0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1] 
-L, C = BerlekampMasseyAlgorithm(stream)
-print('Solution is '), #Output registers 
-print(L, ", ", C)
+def test():
+    prng = lfsr.Lfsr()
+    numbers1 = prng.next32()
+    print("Sortie 1 : \n{}\n".format(numbers1))
+
+    predictions = findNext(numbers1, 32)
+    print("Predictions : \n{}\n".format(predictions))
+    numbers2 = prng.next32()
+    print("Sortie 2 : \n{}\n".format(numbers2))
+
+test()
