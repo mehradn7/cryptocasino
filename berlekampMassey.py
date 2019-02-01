@@ -48,9 +48,11 @@ def test():
     numbers1 = prng.next32()
     print("Sortie 1 : \n{}\n".format(numbers1))
 
-    predictions = predictLFSR(numbers1, 32)
-    print("Predictions : \n{}\n".format(predictions))
+    nbValues = 8
+
+    predictions = predictLFSR(numbers1[:nbValues], 32 + 32 - nbValues)
+    print("Predictions : \n{}\n".format(numbers1[:nbValues]+predictions))
     numbers2 = prng.next32()
-    print("Sortie 2 : \n{}\n".format(numbers2))
+    print("Sortie totale : \n{}\n".format(numbers1+numbers2))
 
 test()
