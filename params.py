@@ -4,6 +4,7 @@ width = 1024
 title = "Jeu de hasard"
 
 #pics
+image_fond_casino = "images/casino.png"
 image_fond_roulette = "images/fondbleu.png"
 image_fond_sidemenu = "images/fondroge.png"
 image_wheel = "images/WheelSmith.png"
