@@ -42,16 +42,15 @@ class windowManager:
 
     def roll(self):
 
-        nbRot = 100
+        nbRot =  150
         init_angle = self.wheel.angle
         end_angle = (self.wheel.angle + 360/16)%360 # à changer en random (PRNG)
 
-        time = numpy.linspace(0,1, nbRot)
+        time = numpy.linspace(0,numpy.pi/2, nbRot)
         
-        angles_test = [x**(1/8) for x in time]
+        angles_test = [numpy.sin(x) for x in time]
         
         angles_test = [((end_angle + 4 *360 - init_angle))*x for x in angles_test]
-        print(angles_test)
 
         angles_test = [init_angle + x for x in angles_test]
         
