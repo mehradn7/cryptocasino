@@ -17,11 +17,12 @@ class EventManager:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_F1):  
             self.state = "Roulette"
             self.windowManager.initRoulette()
+            self.windowManager.initSideMenu()
 
     def manageRoulette(self,event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):  
             self.state = "Menu"
-            self.windowManager.initMenu()
+            self.windowManager.initMainMenu()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
             self.windowManager.roll()

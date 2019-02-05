@@ -26,15 +26,34 @@ class windowManager:
         self.arrow = pygame.image.load(image_arrow).convert_alpha()
 
 
-    def initMenu(self):
+    def initMainMenu(self):
         pygame.display.set_caption(title)
         self.window.blit(self.fond_casino, (0,0))
         pygame.display.flip()
 
+    def initSideMenu(self):
+        self.window.blit(self.fond_sidemenu, (height,0))
+
+        testFont = pygame.font.SysFont("Ubuntu", 48)
+
+        randNumLabel = testFont.render("Gains", 1, (0,0,0))
+        self.window.blit(randNumLabel, (height + 80,10))
+        randNumLabel2 = testFont.render("Case", 1, (0,0,0))
+        self.window.blit(randNumLabel2, (height + 80,height/3 + 10))
+        randNumLabel3 = testFont.render("Mise", 1, (0,0,0))
+        self.window.blit(randNumLabel3, (height + 80,2*height/3 + 10))
+
+        launchButton = pygame.image.load(image_launchbutton).convert_alpha()
+        self.window.blit(launchButton, (height + 5,height -90))
+
+
+        pygame.display.flip()
+
+
     def initRoulette(self):
         pygame.display.set_caption(title)
         self.window.blit(self.fond_casino, (0,0))
-        self.window.blit(self.fond_sidemenu, (height,0))
+
         self.wheel.change_angle(360 / 32)
         self.blitWheel()
         self.blitArrow()
@@ -60,11 +79,9 @@ class windowManager:
 
         angles_test = [init_angle + x for x in angles_test]
         
-        print(angles_test)
-
         for i in range(1, nbRot):
-            self.window.blit(self.fond_casino, (0,0))
-            self.window.blit(self.fond_sidemenu, (height,0))
+            #self.window.blit(self.fond_casino, (0,0))
+            #self.window.blit(self.fond_sidemenu, (height,0)) # pas nécessaire je crois (car recouvert par la roue)
             self.wheel.change_angle(angles_test[i])
             self.blitWheel()
             self.blitArrow()

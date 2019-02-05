@@ -5,7 +5,7 @@ wheelDiameter = 950
 wheelRadius = wheelDiameter/2
 wheelShift = (height - wheelDiameter)/2
 arrowSide = 50
-title = "Jeu de hasard"
+title = "Crypto Casino"
 
 #pics
 image_fond_casino = "images/casino.png"
@@ -13,6 +13,7 @@ image_fond_roulette = "images/fondbleu.png"
 image_fond_sidemenu = "images/fondroge.png"
 image_wheel = "images/WheelSmith.png"
 image_arrow = "images/arrow.png"
+image_launchbutton = "images/launchbutton.png"
 
 image_0 = "images/0.png"
 image_1 = "images/1.png"

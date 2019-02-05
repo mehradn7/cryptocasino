@@ -12,7 +12,7 @@ def mainLoop():
     running = True
     clock = pygame.time.Clock()
     windowManager = interface.windowManager()
-    windowManager.initMenu()
+    windowManager.initMainMenu()
     eventManager = events.EventManager(windowManager)
 
     while running:
