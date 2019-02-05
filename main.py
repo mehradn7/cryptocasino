@@ -3,9 +3,10 @@ import pygame
 import events
 import interface
 import randomNumber
+import random
 
 def mainLoop():
-    print("Test")
+    print("Init pygame mainloop")
     pygame.init()
     
     running = True
@@ -24,11 +25,16 @@ def mainLoop():
         
     print("Fin")
 
+def testRNG(mode ="lfsr"):
+    print("Test of RNG : "+mode)
+    prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
+    for i in range(4):
+        a = prng.randomNumber_4bits()
+        print(randomNumber.intToBits(a, 4))
+
 
 if __name__ == "__main__":
     # execute only if run as a script
     mainLoop()
-    prng = randomNumber.PRNG("lfsr")
-    for i in range(4):
-        a = prng.randomNumber_4bits()
-        print(randomNumber.intToBits(a, 4))
+    testRNG("lfsr")
+    testRNG("mersenne twister")
