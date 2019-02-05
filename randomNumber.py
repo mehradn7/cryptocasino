@@ -1,4 +1,5 @@
 import lfsr
+import mersenneTwister
 
 def bitToInt(bits):
     n = 0
@@ -14,14 +15,16 @@ def intToBits(n, length):
     return bits
 
 class PRNG:
-    def __init__(self, mode):
+    def __init__(self, mode, seed = 5489):
         if (mode=="lfsr"):
             self.generator = lfsr.Lfsr()
+        else:
+            self.generator = mersenneTwister.Mt(seed)
         self.precalculated = []
 
     def randomNumber_4bits(self):
         if (self.precalculated == []):  # on calcule par paquets de 32 bits pour avoir une généralisation facile avec le mersenne twister
-            self.precalculated = self.generator.next32()
+            self.precalculated = intToBits(self.generator.getRandomNumber(), 32)
         n = bitToInt(self.precalculated[0:4])
         self.precalculated  = self.precalculated[4:]
         return n
