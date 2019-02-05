@@ -42,15 +42,26 @@ class windowManager:
 
     def roll(self):
 
-        nbRot = 40
+        nbRot =  150
         init_angle = self.wheel.angle
         end_angle = (self.wheel.angle + 360/16)%360 # à changer en random (PRNG)
-        positions = numpy.linspace(init_angle, end_angle + 4 *360, nbRot)
+
+        time = numpy.linspace(0,numpy.pi/2, nbRot)
+        
+        angles_test = [numpy.sin(x) for x in time]
+        
+        angles_test = [((end_angle + 4 *360 - init_angle))*x for x in angles_test]
+
+        angles_test = [init_angle + x for x in angles_test]
+        
+        print(angles_test)
+
         for i in range(1, nbRot):
             self.window.blit(self.fond_roulette, (0,0))
-            self.wheel.change_angle(positions[i])
-            self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y))
-            self.window.blit(self.arrow, (710,359))
+            self.wheel.change_angle(angles_test[i])
+            self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y)) # afficher la roue
+            self.window.blit(self.arrow, (710,359)) # afficher la flèche
             pygame.display.flip()
-            pygame.time.wait(5 + (5* i**2)//nbRot)
+            #pygame.time.wait(5 + (5* i**2)//nbRot)
+            pygame.time.wait(5)
 
