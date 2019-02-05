@@ -1,6 +1,19 @@
 import lfsr
 """"Implementation inspirée de wikipédia et https://www.codeproject.com/Articles/11646/Implementation-of-Berlekamp-Massey-Algorithm"""
 
+def bitToInt(bits):
+    n = 0
+    for i in range (len(bits)):
+        n+= bits[i]*(2**i)
+    return n
+
+def intToBits(n, length):
+    bits = []
+    for i in range(length):
+        bits.append(n%2)
+        n = n//2
+    return bits
+
 def BerlekampMasseyAlgorithm(stream):
     N = len(stream)
 
@@ -45,14 +58,14 @@ def predictLFSR(stream, n):
 
 def test():
     prng = lfsr.Lfsr()
-    numbers1 = prng.next32()
+    numbers1 = intToBits(prng.getRandomNumber(), 32)
     print("Sortie 1 : \n{}\n".format(numbers1))
 
     nbValues = 8
 
     predictions = predictLFSR(numbers1[:nbValues], 32 + 32 - nbValues)
     print("Predictions : \n{}\n".format(numbers1[:nbValues]+predictions))
-    numbers2 = prng.next32()
+    numbers2 = intToBits(prng.getRandomNumber(), 32)
     print("Sortie totale : \n{}\n".format(numbers1+numbers2))
 
 test()
