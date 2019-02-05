@@ -6,8 +6,8 @@ class Wheel:
     def __init__(self):
         self.surface = pygame.image.load(image_wheel).convert_alpha()
         self.angle = 0
-        self.center_x = 349
-        self.center_y = 349
+        self.center_x = wheelRadius
+        self.center_y = wheelRadius
 
     def change_angle(self, angle):
         self.angle = angle % 360
@@ -34,11 +34,17 @@ class windowManager:
     def initRoulette(self):
         pygame.display.set_caption(title)
         self.window.blit(self.fond_casino, (0,0))
-        self.window.blit(self.fond_sidemenu, (768,0))
+        self.window.blit(self.fond_sidemenu, (height,0))
         self.wheel.change_angle(360 / 32)
-        self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y))
-        self.window.blit(self.arrow, (710,359))
+        self.blitWheel()
+        self.blitArrow()
         pygame.display.flip()
+
+    def blitWheel(self):
+        self.window.blit(self.wheel.surface, (wheelShift + wheelRadius - self.wheel.center_x, wheelShift + wheelRadius - self.wheel.center_y))
+
+    def blitArrow(self):
+        self.window.blit(self.arrow, (wheelShift + wheelDiameter - (arrowSide/2),(height-arrowSide)/2))
 
     def roll(self):
 
@@ -58,10 +64,10 @@ class windowManager:
 
         for i in range(1, nbRot):
             self.window.blit(self.fond_casino, (0,0))
-            self.window.blit(self.fond_sidemenu, (768,0))
+            self.window.blit(self.fond_sidemenu, (height,0))
             self.wheel.change_angle(angles_test[i])
-            self.window.blit(self.wheel.surface, (34 + 349 - self.wheel.center_x, 34 + 349 - self.wheel.center_y)) # afficher la roue
-            self.window.blit(self.arrow, (710,359)) # afficher la flèche
+            self.blitWheel()
+            self.blitArrow()
             pygame.display.flip()
             #pygame.time.wait(5 + (5* i**2)//nbRot)
             pygame.time.wait(5)

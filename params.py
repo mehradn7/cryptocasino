@@ -1,6 +1,10 @@
 #Window parameters
-height = 768
-width = 1024
+height = 1024
+width = 1280
+wheelDiameter = 950
+wheelRadius = wheelDiameter/2
+wheelShift = (height - wheelDiameter)/2
+arrowSide = 50
 title = "Jeu de hasard"
 
 #pics
