@@ -73,11 +73,11 @@ class windowManager:
     def blitArrow(self):
         self.window.blit(self.arrow, (wheelShift + wheelDiameter - (arrowSide/2),(height-arrowSide)/2))
 
-    def roll(self):
+    def roll(self, nextValue):
 
         nbRot =  150
         init_angle = self.wheel.angle
-        end_angle = (self.wheel.angle + 360/16)%360 # à changer en random (PRNG)
+        end_angle = (nextValue + 4)*360 /16
 
         time = numpy.linspace(0,numpy.pi/2, nbRot)
         angles_test = [numpy.sin(x) for x in time]

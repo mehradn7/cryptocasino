@@ -1,11 +1,13 @@
 import pygame
 import interface
+import randomNumber
 
 class EventManager:
 
-    def __init__(self, windowManager):
+    def __init__(self, windowManager, prngMode = "lfsr"):
         self.state = "Menu"
         self.windowManager = windowManager
+        self.prng = randomNumber.PRNG(prngMode)
 
     def manageEvent(self, event):
         if (self.state == "Menu"):
@@ -25,6 +27,7 @@ class EventManager:
             self.windowManager.initMainMenu()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
-            self.windowManager.roll()
+            nextValue = self.prng.randomNumber_4bits()
+            self.windowManager.roll(nextValue)
             pygame.time.wait(100)
             self.state = "Roulette"

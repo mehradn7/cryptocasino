@@ -5,7 +5,7 @@ import interface
 import randomNumber
 import random
 
-def mainLoop():
+def mainLoop(mode = "lfsr")):
     print("Init pygame mainloop")
     pygame.init()
     
@@ -13,7 +13,7 @@ def mainLoop():
     clock = pygame.time.Clock()
     windowManager = interface.windowManager()
     windowManager.initMainMenu()
-    eventManager = events.EventManager(windowManager)
+    eventManager = events.EventManager(windowManager, mode)
 
     while running:
         clock.tick(30)
@@ -35,6 +35,7 @@ def testRNG(mode ="lfsr"):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    mainLoop()
+    mode  ="lfsr"
+    mainLoop(mode)
     testRNG("lfsr")
     testRNG("mersenne twister")
