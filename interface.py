@@ -1,6 +1,7 @@
 import pygame
 import numpy
 from params import *
+from button import *
 
 class Wheel:
     def __init__(self):
@@ -15,7 +16,6 @@ class Wheel:
         self.center_x, self.center_y = self.surface.get_rect().center
 
 class windowManager:
-
     def __init__(self):
         self.window = pygame.display.set_mode((width, height))
         self.fond_casino = pygame.image.load(image_fond_casino).convert()
@@ -24,6 +24,7 @@ class windowManager:
         self.wheel = Wheel()
         self.wheelAngle = 0
         self.arrow = pygame.image.load(image_arrow).convert_alpha()
+        self.all_sprites = pg.sprite.Group()
 
 
     def initMainMenu(self):
@@ -32,31 +33,43 @@ class windowManager:
         pygame.display.flip()
 
     def initSideMenu(self):
-        self.window.blit(self.fond_sidemenu, (height,0))
-
-        testFont = pygame.font.SysFont("Ubuntu", 48)
-        randNumLabel = testFont.render("Gains", 1, (0,0,0))
-        self.window.blit(randNumLabel, (height + 80,10))
-        randNumLabel2 = testFont.render("Case", 1, (0,0,0))
-        self.window.blit(randNumLabel2, (height + 80,height/3 + 10))
-        randNumLabel3 = testFont.render("Mise", 1, (0,0,0))
-        self.window.blit(randNumLabel3, (height + 80,2*height/3 + 10))
-        launchButton = pygame.image.load(image_launchbutton).convert_alpha()
-        self.window.blit(launchButton, (height + 5,height -90))
+        self.blitSideMenu()
         pygame.display.flip()
 
-    def blitSideMenu(self):
+    def blitSideMenu(self, gain = 100):
         self.window.blit(self.fond_sidemenu, (height,0))
 
-        testFont = pygame.font.SysFont("Ubuntu", 48)
-        randNumLabel = testFont.render("Gains", 1, (0,0,0))
-        self.window.blit(randNumLabel, (height + 80,10))
-        randNumLabel2 = testFont.render("Case", 1, (0,0,0))
-        self.window.blit(randNumLabel2, (height + 80,height/3 + 10))
-        randNumLabel3 = testFont.render("Mise", 1, (0,0,0))
-        self.window.blit(randNumLabel3, (height + 80,2*height/3 + 10))
+        # draw section titles
+        font = pygame.font.SysFont("Ubuntu", 36)
+
+        gainsLabel = font.render("Gains", 1, (0,0,0))
+        self.window.blit(gainsLabel, (height + 80,10))
+
+        caseLabel = font.render("Case", 1, (0,0,0))
+        self.window.blit(caseLabel, (height + 80,100))
+
+        miseLabel = font.render("Mise", 1, (0,0,0))
+        self.window.blit(miseLabel, (height + 80,5*height/8 ))
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
-        self.window.blit(launchButton, (height + 5,height -90))
+        self.window.blit(launchButton, (height + 5,7*height/8))
+
+        # test button sprites
+
+        start_button = Button(
+            height + 80, 140, 120, 50, self.testCallback,
+            FONT, 'Test1', (255, 255, 255),
+            IMAGE_NORMAL, IMAGE_HOVER, IMAGE_DOWN)
+        # If you don't pass images, the default images will be used.
+        quit_button = Button(
+            height + 80, 200, 120, 50, self.testCallback,
+            FONT, 'Test2', (255, 255, 255))
+
+        self.all_sprites.add(start_button, quit_button)
+
+        self.all_sprites.draw(self.window)
+
+    def testCallback(self):
+        print("CALLBACK called")
 
 
     def initRoulette(self):
