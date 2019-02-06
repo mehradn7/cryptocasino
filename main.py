@@ -29,7 +29,7 @@ def mainLoop(mode = "lfsr"):
 def testRNG(mode ="lfsr"):
     print("Test of RNG : "+mode)
     prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
-    for i in range(4):
+    for i in range(10):
         a = prng.randomNumber_4bits()
         print(utils.intToBits(a, 4))
 
@@ -38,5 +38,5 @@ if __name__ == "__main__":
     # execute only if run as a script
     mode  ="lfsr"
     mainLoop(mode)
-    testRNG("lfsr")
-    testRNG("mersenne twister")
+    #testRNG("lfsr")
+    #testRNG("mersenne twister")
