@@ -92,4 +92,3 @@ class windowManager:
             pygame.display.flip()
             #pygame.time.wait(5 + (5* i**2)//nbRot)
             pygame.time.wait(5)
-

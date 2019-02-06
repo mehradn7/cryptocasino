@@ -33,7 +33,8 @@ def BerlekampMasseyAlgorithm(stream):
 
 
 def predictLFSR(stream, n):
-    L, C = BerlekampMasseyAlgorithm(stream)
+    L, Creversed = BerlekampMasseyAlgorithm(stream)
+    C = Creversed[::-1]
     N = len(stream)
     state = stream[N-L:]
     predictions = []
