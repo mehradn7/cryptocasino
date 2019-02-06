@@ -4,6 +4,7 @@ import events
 import interface
 import randomNumber
 import random
+import utils
 
 def mainLoop(mode = "lfsr"):
     print("Init pygame mainloop")
@@ -30,7 +31,7 @@ def testRNG(mode ="lfsr"):
     prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
     for i in range(4):
         a = prng.randomNumber_4bits()
-        print(randomNumber.intToBits(a, 4))
+        print(utils.intToBits(a, 4))
 
 
 if __name__ == "__main__":
