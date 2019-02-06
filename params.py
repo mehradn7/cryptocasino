@@ -11,7 +11,7 @@ title = "Crypto Casino"
 image_fond_casino = "images/casino.png"
 image_fond_roulette = "images/fondbleu.png"
 image_fond_sidemenu = "images/fondroge.png"
-image_wheel = "images/WheelSmith.png"
+image_wheel = "images/BruceWheelis.png"
 image_arrow = "images/arrow.png"
 image_launchbutton = "images/launchbutton.png"
 

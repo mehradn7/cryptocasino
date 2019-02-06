@@ -35,26 +35,34 @@ class windowManager:
         self.window.blit(self.fond_sidemenu, (height,0))
 
         testFont = pygame.font.SysFont("Ubuntu", 48)
-
         randNumLabel = testFont.render("Gains", 1, (0,0,0))
         self.window.blit(randNumLabel, (height + 80,10))
         randNumLabel2 = testFont.render("Case", 1, (0,0,0))
         self.window.blit(randNumLabel2, (height + 80,height/3 + 10))
         randNumLabel3 = testFont.render("Mise", 1, (0,0,0))
         self.window.blit(randNumLabel3, (height + 80,2*height/3 + 10))
-
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
         self.window.blit(launchButton, (height + 5,height -90))
-
-
         pygame.display.flip()
+
+    def blitSideMenu(self):
+        self.window.blit(self.fond_sidemenu, (height,0))
+
+        testFont = pygame.font.SysFont("Ubuntu", 48)
+        randNumLabel = testFont.render("Gains", 1, (0,0,0))
+        self.window.blit(randNumLabel, (height + 80,10))
+        randNumLabel2 = testFont.render("Case", 1, (0,0,0))
+        self.window.blit(randNumLabel2, (height + 80,height/3 + 10))
+        randNumLabel3 = testFont.render("Mise", 1, (0,0,0))
+        self.window.blit(randNumLabel3, (height + 80,2*height/3 + 10))
+        launchButton = pygame.image.load(image_launchbutton).convert_alpha()
+        self.window.blit(launchButton, (height + 5,height -90))
 
 
     def initRoulette(self):
         pygame.display.set_caption(title)
         self.window.blit(self.fond_casino, (0,0))
-
-        self.wheel.change_angle(360 / 32)
+        self.wheel.change_angle(1)
         self.blitWheel()
         self.blitArrow()
         pygame.display.flip()
@@ -72,16 +80,12 @@ class windowManager:
         end_angle = (self.wheel.angle + 360/16)%360 # à changer en random (PRNG)
 
         time = numpy.linspace(0,numpy.pi/2, nbRot)
-        
         angles_test = [numpy.sin(x) for x in time]
-        
         angles_test = [((end_angle + 4 *360 - init_angle))*x for x in angles_test]
-
         angles_test = [init_angle + x for x in angles_test]
-        
         for i in range(1, nbRot):
-            #self.window.blit(self.fond_casino, (0,0))
-            #self.window.blit(self.fond_sidemenu, (height,0)) # pas nécessaire je crois (car recouvert par la roue)
+            self.window.blit(self.fond_casino, (0,0))
+            self.blitSideMenu()
             self.wheel.change_angle(angles_test[i])
             self.blitWheel()
             self.blitArrow()
