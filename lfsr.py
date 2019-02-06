@@ -1,8 +1,4 @@
-def bitToInt(bits):
-    n = 0
-    for i in range (len(bits)):
-        n+= bits[i]*(2**i)
-    return n
+import utils
 
 class Lfsr:
     def __init__(self):
@@ -19,4 +15,4 @@ class Lfsr:
         numbers = []
         for i in range(32):
             numbers.append(self.nextBit())
-        return bitToInt(numbers)
+        return utils.bitToInt(numbers)
