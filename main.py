@@ -5,7 +5,7 @@ import interface
 import randomNumber
 import random
 
-def mainLoop(mode = "lfsr")):
+def mainLoop(mode = "lfsr"):
     print("Init pygame mainloop")
     pygame.init()
     
