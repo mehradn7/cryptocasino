@@ -5,7 +5,7 @@ class Lfsr:
         self.state = [1, 0, 1, 0, 0]
     
     def nextBit(self):
-        next = (self.state[0] + self.state[3] + self.state[2])%2
+        next = (self.state[0] + self.state[2] + self.state[3])%2
         self.state.append(next)
         self.state = self.state[1:]
         return next

@@ -28,6 +28,7 @@ class EventManager:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
             nextValue = self.prng.randomNumber_4bits()
+            print("Next", nextValue)
             self.windowManager.roll(nextValue)
             pygame.time.wait(100)
             self.state = "Roulette"

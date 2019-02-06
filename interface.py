@@ -77,7 +77,7 @@ class windowManager:
 
         nbRot =  150
         init_angle = self.wheel.angle
-        end_angle = (nextValue + 4)*360 /16
+        end_angle = ((nextValue - 4)%16)* 360/16
 
         time = numpy.linspace(0,numpy.pi/2, nbRot)
         angles_test = [numpy.sin(x) for x in time]
