@@ -15,13 +15,5 @@ image_wheel = "images/BruceWheelis.png"
 image_arrow = "images/arrow.png"
 image_launchbutton = "images/launchbutton.png"
 
-image_0 = "images/0.png"
-image_1 = "images/1.png"
-image_2 = "images/2.png"
-image_3 = "images/3.png"
-image_4 = "images/4.png"
-image_5 = "images/5.png"
-image_6 = "images/6.png"
-image_7 = "images/7.png"
-image_8 = "images/8.png"
-image_9 = "images/9.png"
+images_up = ["images/{}.png".format(i) for i in range(16)]
+images_down = ["images/{}down.png".format(i) for i in range(16)]
