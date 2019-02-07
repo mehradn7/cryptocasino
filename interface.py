@@ -23,7 +23,7 @@ class windowManager:
         self.fond_sidemenu = pygame.image.load(image_fond_sidemenu).convert()
         self.wheel = Wheel()
         self.wheelAngle = 0
-        self.arrow = pygame.image.load(image_arrow).convert_alpha()
+        self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
         self.all_sprites = pg.sprite.Group()
 
 
@@ -84,7 +84,7 @@ class windowManager:
         self.window.blit(self.wheel.surface, (wheelShift + wheelRadius - self.wheel.center_x, wheelShift + wheelRadius - self.wheel.center_y))
 
     def blitArrow(self):
-        self.window.blit(self.arrow, (wheelShift + wheelDiameter - (arrowSide/2),(height-arrowSide)/2))
+        self.window.blit(self.arrow, (wheelShift + wheelDiameter - arrowSide,(height-arrowSide)/2))
 
     def roll(self, nextValue):
 
