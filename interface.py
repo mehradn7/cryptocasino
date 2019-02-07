@@ -25,15 +25,12 @@ class windowManager:
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
         self.all_sprites = pygame.sprite.Group()
-        self.list_images_up = []
-        self.list_images_down = []
+        self.list_images_buttons_normal = []
+        self.list_images_buttons_clicked = []
 
         for i in range(16):
-            self.list_images_up.append(pygame.transform.scale(pygame.image.load(images_up[i]).convert_alpha(), (100,32)))
-            self.list_images_down.append(pygame.transform.scale(pygame.image.load(images_down[i]).convert_alpha(), (100,32)))
-
-        
-
+            self.list_images_buttons_normal.append(pygame.transform.scale(pygame.image.load(images_buttons_normal[i]).convert_alpha(), (300,200)))
+            self.list_images_buttons_clicked.append(pygame.transform.scale(pygame.image.load(images_buttons_clicked[i]).convert_alpha(), (300,200)))
 
     def initMainMenu(self):
         pygame.display.set_caption(title)
@@ -41,19 +38,13 @@ class windowManager:
         pygame.display.flip()
 
     def initSideMenu(self):
+
         # create button sprites
-
-        start_button = Button(
-            height + 80, 140, 120, 50, self.testCallback,
-            self.list_images_up[0], self.list_images_down[0], self.list_images_down[0])
-        # If you don't pass images, the default images will be used.
-        quit_button = Button(
-            height + 80, 200, 120, 50, self.testCallback,
-            self.list_images_up[1], self.list_images_down[1], self.list_images_down[1])
-
-
-        self.all_sprites.add(start_button, quit_button)
-
+        for i in range(4):
+            for j in range(4):
+                button = Button(height + 10 + 60*i, 140 + 40*j, 55, 35, self.testCallback,self.list_images_buttons_normal[4*j+i], 
+                self.list_images_buttons_clicked[4*j+i], self.list_images_buttons_clicked[4*j+i])
+                self.all_sprites.add(button)
 
         self.blitSideMenu()
 

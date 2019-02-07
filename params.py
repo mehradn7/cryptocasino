@@ -15,5 +15,5 @@ image_wheel = "images/BruceWheelis.png"
 image_arrow = "images/arrow.png"
 image_launchbutton = "images/launchbutton.png"
 
-images_up = ["images/{}.png".format(i) for i in range(16)]
-images_down = ["images/{}down.png".format(i) for i in range(16)]
+images_buttons_normal = ["images/{}.png".format(i) for i in range(16)]
+images_buttons_clicked = ["images/{}down.png".format(i) for i in range(16)]

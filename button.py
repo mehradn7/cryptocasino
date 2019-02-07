@@ -22,15 +22,12 @@ class Button(pygame.sprite.Sprite):
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
-                self.image = self.image_down
-                self.callback()  # Call the function.
-                self.button_down = True
-        elif event.type == pygame.MOUSEBUTTONUP:
-            # If the rect collides with the mouse pos.
-            if self.rect.collidepoint(event.pos) and self.button_down:
-                self.callback()  # Call the function.
-                self.image = self.image_hover
-            self.button_down = False
+                self.button_down = not (self.button_down)
+                self.image = self.image_down if (self.button_down == True) else self.image_normal
+            else:
+                self.button_down = False
+                self.image = self.image_normal
+            self.callback()
         elif event.type == pygame.MOUSEMOTION:
             collided = self.rect.collidepoint(event.pos)
             if collided and not self.button_down:
