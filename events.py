@@ -32,3 +32,10 @@ class EventManager:
             self.windowManager.roll(nextValue)
             pygame.time.wait(100)
             self.state = "Roulette"
+
+        if (event.type == pygame.MOUSEBUTTONDOWN):
+            for button  in self.windowManager.all_sprites.sprites():
+                if (button.rect.collidepoint(event.pos)):
+                    button.handle_event(event)
+                    self.windowManager.all_sprites.draw(self.windowManager.window)
+                    pygame.display.flip()

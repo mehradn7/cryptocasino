@@ -24,7 +24,15 @@ class windowManager:
         self.wheel = Wheel()
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
-        self.all_sprites = pg.sprite.Group()
+        self.all_sprites = pygame.sprite.Group()
+        self.list_images_up = []
+        self.list_images_down = []
+
+        for i in range(16):
+            self.list_images_up.append(pygame.transform.scale(pygame.image.load(images_up[i]).convert_alpha(), (100,32)))
+            self.list_images_down.append(pygame.transform.scale(pygame.image.load(images_down[i]).convert_alpha(), (100,32)))
+
+        
 
 
     def initMainMenu(self):
@@ -33,7 +41,22 @@ class windowManager:
         pygame.display.flip()
 
     def initSideMenu(self):
+        # create button sprites
+
+        start_button = Button(
+            height + 80, 140, 120, 50, self.testCallback,
+            self.list_images_up[0], self.list_images_down[0], self.list_images_down[0])
+        # If you don't pass images, the default images will be used.
+        quit_button = Button(
+            height + 80, 200, 120, 50, self.testCallback,
+            self.list_images_up[1], self.list_images_down[1], self.list_images_down[1])
+
+
+        self.all_sprites.add(start_button, quit_button)
+
+
         self.blitSideMenu()
+
         pygame.display.flip()
 
     def blitSideMenu(self, gain = 100):
@@ -52,19 +75,6 @@ class windowManager:
         self.window.blit(miseLabel, (height + 80,5*height/8 ))
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
         self.window.blit(launchButton, (height + 5,7*height/8))
-
-        # test button sprites
-
-        start_button = Button(
-            height + 80, 140, 120, 50, self.testCallback,
-            FONT, 'Test1', (255, 255, 255),
-            IMAGE_NORMAL, IMAGE_HOVER, IMAGE_DOWN)
-        # If you don't pass images, the default images will be used.
-        quit_button = Button(
-            height + 80, 200, 120, 50, self.testCallback,
-            FONT, 'Test2', (255, 255, 255))
-
-        self.all_sprites.add(start_button, quit_button)
 
         self.all_sprites.draw(self.window)
 
