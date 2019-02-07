@@ -3,7 +3,8 @@ import numpy
 from params import *
 from button import *
 
-class Wheel:
+# A class representing the wheel
+class Wheel: # mettre dans un fichier à part
     def __init__(self):
         self.surface = pygame.image.load(image_wheel).convert_alpha()
         self.angle = 0
@@ -15,7 +16,8 @@ class Wheel:
         self.surface = pygame.transform.rotate(pygame.image.load(image_wheel).convert_alpha(), self.angle)
         self.center_x, self.center_y = self.surface.get_rect().center
 
-class windowManager:
+# A class representing the game and all its content
+class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.py), ça parait plus logique
     def __init__(self):
         self.window = pygame.display.set_mode((width, height))
         self.fond_casino = pygame.image.load(image_fond_casino).convert()
@@ -42,7 +44,7 @@ class windowManager:
         # create button sprites
         for i in range(4):
             for j in range(4):
-                button = Button(height + 10 + 60*i, 140 + 40*j, 55, 35, self.testCallback,self.list_images_buttons_normal[4*j+i], 
+                button = Button(height + 10 + 60*i, 160 + 40*j, 55, 35, self.testCallback,self.list_images_buttons_normal[4*j+i], 
                 self.list_images_buttons_clicked[4*j+i], self.list_images_buttons_clicked[4*j+i])
                 self.all_sprites.add(button)
 
@@ -67,11 +69,11 @@ class windowManager:
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
         self.window.blit(launchButton, (height + 5,7*height/8))
 
+        # draw button sprites
         self.all_sprites.draw(self.window)
 
     def testCallback(self):
-        print("CALLBACK called")
-
+        pass # do nothing for the moment
 
     def initRoulette(self):
         pygame.display.set_caption(title)
@@ -88,19 +90,18 @@ class windowManager:
         self.window.blit(self.arrow, (wheelShift + wheelDiameter - arrowSide,(height-arrowSide)/2))
 
     def roll(self, nextValue):
-
         nbRot =  150
         init_angle = self.wheel.angle
         end_angle = ((nextValue - 4)%16)* 360/16
 
         time = numpy.linspace(0,numpy.pi/2, nbRot)
-        angles_test = [numpy.sin(x) for x in time]
-        angles_test = [((end_angle + 4 *360 - init_angle))*x for x in angles_test]
-        angles_test = [init_angle + x for x in angles_test]
+        angle_values = [numpy.sin(x) for x in time]
+        angle_values = [((end_angle + 4 *360 - init_angle))*x for x in angle_values]
+        angle_values = [init_angle + x for x in angle_values]
         for i in range(1, nbRot):
             self.window.blit(self.fond_casino, (0,0))
             self.blitSideMenu()
-            self.wheel.change_angle(angles_test[i])
+            self.wheel.change_angle(angle_values[i])
             self.blitWheel()
             self.blitArrow()
             pygame.display.flip()

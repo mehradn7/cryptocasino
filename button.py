@@ -1,5 +1,6 @@
 import pygame
 
+# This class represents a single button with a number, used to bet on a pocket
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, callback,
                  image_normal, image_hover,
@@ -19,6 +20,7 @@ class Button(pygame.sprite.Sprite):
         self.button_down = False
     
 
+    # Handle the click on a button
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):

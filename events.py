@@ -2,6 +2,7 @@ import pygame
 import interface
 import randomNumber
 
+# A class that manages all the events occuring throughout the game
 class EventManager:
 
     def __init__(self, windowManager, prngMode = "lfsr"):
@@ -31,6 +32,7 @@ class EventManager:
             print("Next", nextValue)
             self.windowManager.roll(nextValue)
             pygame.time.wait(100)
+            pygame.event.clear() # clear all events that happened while the wheel was rolling
             self.state = "Roulette"
 
         if (event.type == pygame.MOUSEBUTTONDOWN):
