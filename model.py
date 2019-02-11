@@ -1,6 +1,8 @@
-class Model: # mettre dans un fichier à part
+# A class describing the model of the game
+
+class Model:
     def __init__(self):
-        self.gains = 100
+        self.balance = 100
         self.mise = 1
         self.case = 0
 
@@ -12,5 +14,5 @@ class Model: # mettre dans un fichier à part
 
     def tour(self, caseSortie):
         if self.case == caseSortie:
-            self.gains += self.mise * 15
-        print("Money :", self.gains)
+            self.balance += self.mise * 15
+        print("Balance :", self.balance)

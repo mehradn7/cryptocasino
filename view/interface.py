@@ -1,29 +1,18 @@
 import pygame
 import numpy
+
 from params import *
-from button import *
+import view.pocketbutton as pocketbutton
+import view.wheel as wheel
 
-# A class representing the wheel
-class Wheel: # mettre dans un fichier à part
-    def __init__(self):
-        self.surface = pygame.image.load(image_wheel).convert_alpha()
-        self.angle = 0
-        self.center_x = wheelRadius
-        self.center_y = wheelRadius
-
-    def change_angle(self, angle):
-        self.angle = angle % 360
-        self.surface = pygame.transform.rotate(pygame.image.load(image_wheel).convert_alpha(), self.angle)
-        self.center_x, self.center_y = self.surface.get_rect().center
-
-# A class representing the game and all its content
-class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.py), ça parait plus logique : non
+# A class representing the window and all its content
+class WindowManager:
     def __init__(self):
         self.window = pygame.display.set_mode((width, height))
         self.fond_casino = pygame.image.load(image_fond_casino).convert()
         self.fond_roulette = pygame.image.load(image_fond_roulette).convert()
         self.fond_sidemenu = pygame.image.load(image_fond_sidemenu).convert()
-        self.wheel = Wheel()
+        self.wheel = wheel.Wheel()
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
         self.case_sprites = pygame.sprite.Group()
@@ -44,9 +33,9 @@ class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.p
         # create button sprites
         for i in range(4):
             for j in range(4):
-                caseNumber = 4*i+j
-                button = CaseButton(height + 10 + 60*j, 160 + 40*i, 55, 35,self.list_images_buttons_normal[caseNumber], 
-                self.list_images_buttons_clicked[caseNumber], self.list_images_buttons_clicked[caseNumber], caseNumber)
+                pocketNumber = 4*i+j
+                button = pocketbutton.PocketButton(height + 10 + 60*j, 160 + 40*i, 55, 35,self.list_images_buttons_normal[pocketNumber], 
+                self.list_images_buttons_clicked[pocketNumber], self.list_images_buttons_clicked[pocketNumber], pocketNumber)
                 self.case_sprites.add(button)
                 button.update_picture(modele)
                 

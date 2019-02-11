@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 import pygame
-import events
-import interface
-import randomNumber
 import random
+
+import events
+import view.interface as  interface
+import crypto.randomNumber as randomNumber
 import utils
 
 def mainLoop(mode = "lfsr"):
@@ -12,9 +13,9 @@ def mainLoop(mode = "lfsr"):
     
     running = True
     clock = pygame.time.Clock()
-    windowManager = interface.windowManager()
-    windowManager.initMainMenu()
-    eventManager = events.EventManager(windowManager, mode)
+    windowMgr = interface.WindowManager()
+    windowMgr.initMainMenu()
+    eventManager = events.EventManager(windowMgr, mode)
 
     while running:
         clock.tick(30)
