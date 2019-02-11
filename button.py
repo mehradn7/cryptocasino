@@ -50,10 +50,6 @@ class CaseButton(Button):
                  image_down)
         
         self.caseNumber = caseNumber   
-        self.callback = self.buttonCallback
-
-    def buttonCallback(self):
-        print("Button", self.caseNumber)
 
     # Handle the click on a button
     def handle_event(self, event, modele):

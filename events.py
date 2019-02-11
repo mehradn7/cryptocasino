@@ -34,6 +34,7 @@ class EventManager:
             nextValue = self.prng.randomNumber_4bits()
             print("Next", nextValue)
             self.windowManager.roll(nextValue)
+            self.modele.tour(nextValue)
             pygame.time.wait(100)
             pygame.event.clear() # clear all events that happened while the wheel was rolling
             self.state = "Roulette"
