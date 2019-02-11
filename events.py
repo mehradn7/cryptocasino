@@ -19,16 +19,17 @@ class EventManager:
         if (self.state == "Roulette"):
             self.manageRoulette(event)
 
-    def manageMenu(self,event):
+    def manageMenu(self, event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_F1):  
             self.state = "Roulette"
             self.windowManager.initRoulette()
             self.windowManager.initSideMenu(self.modele)
 
-    def manageRoulette(self,event):
+    def manageRoulette(self, event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):  
             self.state = "Menu"
             self.windowManager.initMainMenu()
+            
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
             nextValue = self.prng.randomNumber_4bits()
@@ -40,10 +41,16 @@ class EventManager:
             self.state = "Roulette"
 
         if (event.type == pygame.MOUSEBUTTONDOWN):
-            for button in self.windowManager.all_sprites.sprites():
-                #if (button.rect.collidepoint(event.pos)):
-                button.handle_event(event, self.modele)
-            for button in self.windowManager.all_sprites.sprites():
-                button.update_picture( self.modele)
-            self.windowManager.all_sprites.draw(self.windowManager.window)
+
+            # handle click to update the model
+            for button in self.windowManager.case_sprites.sprites():
+                if button.rect.collidepoint(event.pos):
+                    self.modele.caseChosen(button.caseNumber)
+    
+            # update pictures depending on the model
+            for button in self.windowManager.case_sprites.sprites():
+                button.update_picture(self.modele)
+    
+            # refresh view
+            self.windowManager.case_sprites.draw(self.windowManager.window)
             pygame.display.flip()

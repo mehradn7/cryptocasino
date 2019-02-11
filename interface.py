@@ -17,7 +17,7 @@ class Wheel: # mettre dans un fichier à part
         self.center_x, self.center_y = self.surface.get_rect().center
 
 # A class representing the game and all its content
-class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.py), ça parait plus logique
+class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.py), ça parait plus logique : non
     def __init__(self):
         self.window = pygame.display.set_mode((width, height))
         self.fond_casino = pygame.image.load(image_fond_casino).convert()
@@ -26,7 +26,7 @@ class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.p
         self.wheel = Wheel()
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
-        self.all_sprites = pygame.sprite.Group()
+        self.case_sprites = pygame.sprite.Group()
         self.list_images_buttons_normal = []
         self.list_images_buttons_clicked = []
 
@@ -45,11 +45,11 @@ class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.p
         for i in range(4):
             for j in range(4):
                 caseNumber = 4*i+j
-                button = CaseButton(height + 10 + 60*j, 160 + 40*i, 55, 35, self.testCallback,self.list_images_buttons_normal[caseNumber], 
+                button = CaseButton(height + 10 + 60*j, 160 + 40*i, 55, 35,self.list_images_buttons_normal[caseNumber], 
                 self.list_images_buttons_clicked[caseNumber], self.list_images_buttons_clicked[caseNumber], caseNumber)
-                self.all_sprites.add(button)
+                self.case_sprites.add(button)
                 button.update_picture(modele)
-
+                
         self.blitSideMenu()
 
         pygame.display.flip()
@@ -72,10 +72,8 @@ class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.p
         self.window.blit(launchButton, (height + 5,7*height/8))
 
         # draw button sprites
-        self.all_sprites.draw(self.window)
+        self.case_sprites.draw(self.window)
 
-    def testCallback(self):
-        pass # do nothing for the moment
 
     def initRoulette(self):
         pygame.display.set_caption(title)
