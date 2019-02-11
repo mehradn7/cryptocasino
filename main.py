@@ -4,7 +4,7 @@ import random
 
 import events
 import view.interface as  interface
-import crypto.randomNumber as randomNumber
+import rng.randomNumber as randomNumber
 import utils
 
 def mainLoop(mode = "lfsr"):

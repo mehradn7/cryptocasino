@@ -1,5 +1,5 @@
-import crypto.lfsr as lfsr
-import crypto.mersenneTwister as mersenneTwister
+import rng.lfsr as lfsr
+import rng.mersenneTwister as mersenneTwister
 import utils
 
 class PRNG:

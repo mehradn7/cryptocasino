@@ -1,5 +1,5 @@
 import pygame
-import crypto.randomNumber
+import rng.randomNumber as randomNumber
 import model
 
 # A class that manages all the events occuring throughout the game
@@ -8,7 +8,7 @@ class EventManager:
     def __init__(self, windowManager, prngMode = "lfsr"):
         self.state = "Menu"
         self.windowManager = windowManager
-        self.prng = crypto.randomNumber.PRNG(prngMode)
+        self.prng = randomNumber.PRNG(prngMode)
         self.modele = model.Model()
 
 
