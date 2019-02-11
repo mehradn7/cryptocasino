@@ -21,7 +21,7 @@ class Button(pygame.sprite.Sprite):
     
 
     # Handle the click on a button
-    def handle_event(self, event):
+    def handle_event(self, event, modele):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 self.button_down = not (self.button_down)
@@ -36,4 +36,36 @@ class Button(pygame.sprite.Sprite):
                 self.image = self.image_hover
             elif not collided:
                 self.image = self.image_normal
+
+    def update_picture(self, modele):
+        pass
+
+class CaseButton(Button):
+    def __init__(self, x, y, width, height, callback,
+                 image_normal, image_hover,
+                 image_down, caseNumber):
+
+        super().__init__(x, y, width, height, callback,
+                 image_normal, image_hover,
+                 image_down)
         
+        self.caseNumber = caseNumber   
+        self.callback = self.buttonCallback
+
+    def buttonCallback(self):
+        print("Button", self.caseNumber)
+
+    # Handle the click on a button
+    def handle_event(self, event, modele):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.rect.collidepoint(event.pos):
+                modele.caseChosen(self.caseNumber)
+            self.callback()
+
+    def update_picture(self, modele):
+        if modele.case == self.caseNumber:
+            self.button_down = True
+            self.image = self.image_down
+        else:
+            self.button_down = False
+            self.image = self.image_normal

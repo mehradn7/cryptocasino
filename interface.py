@@ -39,14 +39,16 @@ class windowManager: #changer le nom en 'Game' (et renommer ce fichier en game.p
         self.window.blit(self.fond_casino, (0,0))
         pygame.display.flip()
 
-    def initSideMenu(self):
+    def initSideMenu(self, modele):
 
         # create button sprites
         for i in range(4):
             for j in range(4):
-                button = Button(height + 10 + 60*i, 160 + 40*j, 55, 35, self.testCallback,self.list_images_buttons_normal[4*j+i], 
-                self.list_images_buttons_clicked[4*j+i], self.list_images_buttons_clicked[4*j+i])
+                caseNumber = 4*i+j
+                button = CaseButton(height + 10 + 60*j, 160 + 40*i, 55, 35, self.testCallback,self.list_images_buttons_normal[caseNumber], 
+                self.list_images_buttons_clicked[caseNumber], self.list_images_buttons_clicked[caseNumber], caseNumber)
                 self.all_sprites.add(button)
+                button.update_picture(modele)
 
         self.blitSideMenu()
 

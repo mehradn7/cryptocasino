@@ -1,6 +1,7 @@
 import pygame
 import interface
 import randomNumber
+import model
 
 # A class that manages all the events occuring throughout the game
 class EventManager:
@@ -9,6 +10,8 @@ class EventManager:
         self.state = "Menu"
         self.windowManager = windowManager
         self.prng = randomNumber.PRNG(prngMode)
+        self.modele = model.Model()
+
 
     def manageEvent(self, event):
         if (self.state == "Menu"):
@@ -20,7 +23,7 @@ class EventManager:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_F1):  
             self.state = "Roulette"
             self.windowManager.initRoulette()
-            self.windowManager.initSideMenu()
+            self.windowManager.initSideMenu(self.modele)
 
     def manageRoulette(self,event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):  
@@ -38,6 +41,8 @@ class EventManager:
         if (event.type == pygame.MOUSEBUTTONDOWN):
             for button in self.windowManager.all_sprites.sprites():
                 #if (button.rect.collidepoint(event.pos)):
-                button.handle_event(event)
+                button.handle_event(event, self.modele)
+            for button in self.windowManager.all_sprites.sprites():
+                button.update_picture( self.modele)
             self.windowManager.all_sprites.draw(self.windowManager.window)
             pygame.display.flip()
