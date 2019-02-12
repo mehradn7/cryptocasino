@@ -33,31 +33,32 @@ class EventManager:
             self.state = "Rolling"
             nextValue = self.prng.randomNumber_4bits()
             print("Next", nextValue)
-            self.windowManager.roll(nextValue)
+            self.windowManager.roll(nextValue, self.modele)
             self.modele.tour(nextValue)
+            self.windowManager.blitSideMenu(self.modele)
             pygame.event.clear() # clear all events that happened while the wheel was rolling
             self.state = "Roulette"
 
         if (event.type == pygame.MOUSEBUTTONDOWN):
 
-            # handle click to update the model (case_sprites)
-            for button in self.windowManager.case_sprites.sprites():
+            # handle click to update the model (pocket_sprites)
+            for button in self.windowManager.pocket_sprites.sprites():
                 if button.rect.collidepoint(event.pos):
                     self.modele.caseChosen(button.pocketNumber)
 
             # handle click to update the model (bet_sprites)
     
             # update pictures depending on the model
-            for button in self.windowManager.case_sprites.sprites():
+            for button in self.windowManager.pocket_sprites.sprites():
                 button.update_picture(self.modele)
     
             # refresh view
-            self.windowManager.case_sprites.draw(self.windowManager.window)
+            self.windowManager.pocket_sprites.draw(self.windowManager.window)
             pygame.display.flip()
 
         if (event.type == pygame.MOUSEMOTION):
-            # handle click to update the model (case_sprites)
-            for button in self.windowManager.case_sprites.sprites():
+            # handle click to update the model (pocket_sprites)
+            for button in self.windowManager.pocket_sprites.sprites():
                 
                 if self.modele.case != button.pocketNumber:
                     if button.rect.collidepoint(event.pos):
@@ -66,5 +67,5 @@ class EventManager:
                         button.image = button.image_normal
 
             # refresh view
-            self.windowManager.case_sprites.draw(self.windowManager.window)
+            self.windowManager.pocket_sprites.draw(self.windowManager.window)
             pygame.display.flip()

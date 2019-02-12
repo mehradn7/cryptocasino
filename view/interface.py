@@ -3,6 +3,7 @@ import numpy
 
 from params import *
 import view.pocketbutton as pocketbutton
+import view.betbutton as betbutton
 import view.wheel as wheel
 
 # A class representing the window and all its content
@@ -15,53 +16,77 @@ class WindowManager:
         self.wheel = wheel.Wheel()
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
-        self.case_sprites = pygame.sprite.Group()
+        self.pocket_sprites = pygame.sprite.Group()
+        self.bet_sprites = pygame.sprite.Group()
         self.list_images_buttons_normal = []
         self.list_images_buttons_clicked = []
+        self.list_images_mises_normal = []
+        self.list_images_mises_clicked = []
 
         for i in range(16):
             self.list_images_buttons_normal.append(pygame.transform.scale(pygame.image.load(images_buttons_normal[i]).convert_alpha(), (300,200)))
             self.list_images_buttons_clicked.append(pygame.transform.scale(pygame.image.load(images_buttons_clicked[i]).convert_alpha(), (300,200)))
+        for i in range(4):
+            self.list_images_mises_normal.append(pygame.transform.scale(pygame.image.load(images_mises_normal[i]).convert_alpha(), (300,300)))
+            self.list_images_mises_clicked.append(pygame.transform.scale(pygame.image.load(images_mises_clicked[i]).convert_alpha(), (300,300)))
 
     def initMainMenu(self):
         pygame.display.set_caption(title)
         self.window.blit(self.fond_casino, (0,0))
         pygame.display.flip()
 
+    def createPocketButton(self, modele, i, j):
+        pocketNumber = 4*i+j
+        button = pocketbutton.PocketButton(height + 10 + 60*j, 150 + 40*i, 55, 35,self.list_images_buttons_normal[pocketNumber], 
+        self.list_images_buttons_clicked[pocketNumber], self.list_images_buttons_clicked[pocketNumber], pocketNumber)
+        self.pocket_sprites.add(button)
+        button.update_picture(modele)
+
+    def createBetButton(self, modele, value, i):
+        button = betbutton.BetButton(height + 10 + 60*i, 380, 55, 55,self.list_images_mises_normal[i], 
+        self.list_images_mises_clicked[i], self.list_images_mises_clicked[i], value)
+        self.bet_sprites.add(button)
+        button.update_picture(modele)
+
     def initSideMenu(self, modele):
 
         # create button sprites
+        # pocketButtons
         for i in range(4):
             for j in range(4):
-                pocketNumber = 4*i+j
-                button = pocketbutton.PocketButton(height + 10 + 60*j, 160 + 40*i, 55, 35,self.list_images_buttons_normal[pocketNumber], 
-                self.list_images_buttons_clicked[pocketNumber], self.list_images_buttons_clicked[pocketNumber], pocketNumber)
-                self.case_sprites.add(button)
-                button.update_picture(modele)
-                
-        self.blitSideMenu()
+                self.createPocketButton(modele, i, j)
+        # betButtons
+        betValues = [10, 20, 50, 100]
+        for i in range(4):
+            self.createBetButton(modele, betValues[i], i)            
+
+
+        self.blitSideMenu(modele)
 
         pygame.display.flip()
 
-    def blitSideMenu(self, gain = 100):
+    def blitSideMenu(self, modele):
         self.window.blit(self.fond_sidemenu, (height,0))
 
         # draw section titles
-        font = pygame.font.SysFont("Ubuntu", 36)
+        font = pygame.font.SysFont("Stilton", 42)
+        textyellow = (242, 255, 0)
 
-        gainsLabel = font.render("Gains", 1, (0,0,0))
-        self.window.blit(gainsLabel, (height + 80,10))
+        gainsLabel = font.render("Balance : ${}".format(modele.balance), 1, textyellow)
+        self.window.blit(gainsLabel, (height + 20, 40))
 
-        caseLabel = font.render("Case", 1, (0,0,0))
-        self.window.blit(caseLabel, (height + 80,100))
+        caseLabel = font.render("Pocket", 1, textyellow)
+        self.window.blit(caseLabel, (height + 80, 100))
 
-        miseLabel = font.render("Mise", 1, (0,0,0))
-        self.window.blit(miseLabel, (height + 80,5*height/8 ))
+        miseLabel = font.render("Bet", 1, textyellow)
+        self.window.blit(miseLabel, (height + 100, 340 ))
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
-        self.window.blit(launchButton, (height + 5,7*height/8))
+        self.window.blit(launchButton, (height + 5, 500))
 
         # draw button sprites
-        self.case_sprites.draw(self.window)
+        self.pocket_sprites.draw(self.window)
+        self.bet_sprites.draw(self.window)
+
 
 
     def initRoulette(self):
@@ -78,7 +103,7 @@ class WindowManager:
     def blitArrow(self):
         self.window.blit(self.arrow, (wheelShift + wheelDiameter - arrowSide,(height-arrowSide)/2))
 
-    def roll(self, nextValue):
+    def roll(self, nextValue, modele):
         nbRot =  150
         init_angle = self.wheel.angle
         end_angle = ((nextValue - 4)%16)* 360/16
@@ -89,7 +114,7 @@ class WindowManager:
         angle_values = [init_angle + x for x in angle_values]
         for i in range(1, nbRot):
             self.window.blit(self.fond_casino, (0,0))
-            self.blitSideMenu()
+            self.blitSideMenu(modele)
             self.wheel.change_angle(angle_values[i])
             self.blitWheel()
             self.blitArrow()
