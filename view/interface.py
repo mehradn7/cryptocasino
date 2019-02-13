@@ -17,7 +17,8 @@ class WindowManager:
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
         self.pocket_sprites = pygame.sprite.Group()
-        self.bet_sprites = pygame.sprite.Group()
+        # self.bet_sprites = pygame.sprite.Group()
+        self.bet_sprites = []
         self.list_images_buttons_normal = []
         self.list_images_buttons_clicked = []
         self.list_images_mises_normal = []
@@ -45,7 +46,7 @@ class WindowManager:
     def createBetButton(self, modele, value, i):
         button = betbutton.BetButton(height + 10 + 60*i, 380, 55, 55,self.list_images_mises_normal[i], 
         self.list_images_mises_clicked[i], self.list_images_mises_clicked[i], value)
-        self.bet_sprites.add(button)
+        self.bet_sprites.append(button)
         button.update_picture(modele)
 
     def initSideMenu(self, modele):
@@ -56,7 +57,7 @@ class WindowManager:
             for j in range(4):
                 self.createPocketButton(modele, i, j)
         # betButtons
-        betValues = [10, 20, 50, 100]
+        betValues = [10, 20, 100, 200]
         for i in range(4):
             self.createBetButton(modele, betValues[i], i)            
 
@@ -85,7 +86,9 @@ class WindowManager:
 
         # draw button sprites
         self.pocket_sprites.draw(self.window)
-        self.bet_sprites.draw(self.window)
+        for spr in self.bet_sprites:
+            if spr.betValue <= modele.balance:
+                self.window.blit(spr.image, spr.rect)
 
 
 
@@ -119,5 +122,4 @@ class WindowManager:
             self.blitWheel()
             self.blitArrow()
             pygame.display.flip()
-            #pygame.time.wait(5 + (5* i**2)//nbRot)
             pygame.time.wait(5)

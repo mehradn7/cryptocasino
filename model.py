@@ -3,7 +3,7 @@
 class Model:
     def __init__(self):
         self.balance = 100
-        self.mise = 1
+        self.mise = 10
         self.case = 0
 
     def caseChosen(self, caseNumber):
