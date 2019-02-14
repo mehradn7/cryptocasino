@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-import pygame
 import random
+import pygame
 
 import events
 import view.interface as  interface
 import rng.randomNumber as randomNumber
 import utils
 
-def mainLoop(mode = "lfsr"):
+def mainLoop(mode="lfsr"):
     print("Init pygame mainloop")
     pygame.init()
-    
+
     running = True
     clock = pygame.time.Clock()
-    windowMgr = interface.WindowManager()
-    windowMgr.initMainMenu()
-    eventManager = events.EventManager(windowMgr, mode)
+    window_manager = interface.WindowManager()
+    window_manager.initMainMenu()
+    event_manager = events.EventManager(window_manager, mode)
 
     while running:
         clock.tick(30)
@@ -23,11 +23,11 @@ def mainLoop(mode = "lfsr"):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                eventManager.manageEvent(event)
+                event_manager.manageEvent(event)
         
     print("Fin")
 
-def testRNG(mode ="lfsr"):
+def testRNG(mode="lfsr"):
     print("Test of RNG : "+mode)
     prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
     for i in range(10):
@@ -37,7 +37,6 @@ def testRNG(mode ="lfsr"):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    mode  ="lfsr"
-    mainLoop(mode)
+    mainLoop("lfsr")
     #testRNG("lfsr")
     #testRNG("mersenne twister")

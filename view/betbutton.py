@@ -12,8 +12,8 @@ class BetButton(Button):
         
         self.betValue = betValue
 
-    def update_picture(self, modele):
-        if modele.mise == self.betValue:
+    def update_picture(self, model):
+        if model.bet == self.betValue:
             self.image = self.image_down
         else:
             self.image = self.image_normal

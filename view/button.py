@@ -14,6 +14,6 @@ class Button(pygame.sprite.Sprite):
 
         self.image = self.image_normal  # The currently active image.
         self.rect = self.image.get_rect(topleft=(x, y))
- 
-    def update_picture(self, modele):
+
+    def update_picture(self, model):
         pass
