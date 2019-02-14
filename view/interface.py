@@ -37,14 +37,14 @@ class WindowManager:
         pygame.display.flip()
 
     def createPocketButton(self, modele, i, j):
-        pocketNumber = 4*i+j
-        button = pocketbutton.PocketButton(height + 10 + 60*j, 150 + 40*i, 55, 35,self.list_images_buttons_normal[pocketNumber], 
+        pocketNumber = 4*i+j # row i, column j
+        button = pocketbutton.PocketButton(height + 10 + 60*j, 150 + 40*i, 55, 35, self.list_images_buttons_normal[pocketNumber],
         self.list_images_buttons_clicked[pocketNumber], self.list_images_buttons_clicked[pocketNumber], pocketNumber)
         self.pocket_sprites.add(button)
         button.update_picture(modele)
 
     def createBetButton(self, modele, value, i):
-        button = betbutton.BetButton(height + 10 + 60*i, 380, 55, 55,self.list_images_mises_normal[i], 
+        button = betbutton.BetButton(height + 10 + 60*i, 380, 55, 55, self.list_images_mises_normal[i],
         self.list_images_mises_clicked[i], self.list_images_mises_clicked[i], value)
         self.bet_sprites.append(button)
         button.update_picture(modele)
@@ -57,9 +57,8 @@ class WindowManager:
             for j in range(4):
                 self.createPocketButton(modele, i, j)
         # betButtons
-        betValues = [10, 20, 100, 200]
         for i in range(4):
-            self.createBetButton(modele, betValues[i], i)            
+            self.createBetButton(modele, modele.bet_values[i], i)            
 
 
         self.blitSideMenu(modele)
@@ -84,11 +83,14 @@ class WindowManager:
         launchButton = pygame.image.load(image_launchbutton).convert_alpha()
         self.window.blit(launchButton, (height + 5, 500))
 
-        # draw button sprites
+        # draw pocket sprites
         self.pocket_sprites.draw(self.window)
-        for spr in self.bet_sprites:
-            if spr.betValue <= modele.balance:
-                self.window.blit(spr.image, spr.rect)
+
+        # draw bet sprites
+        for sprite in self.bet_sprites:
+            if sprite.betValue <= modele.balance: # draw the bet sprite only if the player has sufficient money
+                sprite.update_picture(modele)
+                self.window.blit(sprite.image, sprite.rect)
 
 
 
@@ -106,10 +108,10 @@ class WindowManager:
     def blitArrow(self):
         self.window.blit(self.arrow, (wheelShift + wheelDiameter - arrowSide,(height-arrowSide)/2))
 
-    def roll(self, nextValue, modele):
+    def roll(self, modele):
         nbRot =  150
         init_angle = self.wheel.angle
-        end_angle = ((nextValue - 4)%16)* 360/16
+        end_angle = ((modele.nextValue - 4)%16)* 360/16
 
         time = numpy.linspace(0,numpy.pi/2, nbRot)
         angle_values = [numpy.sin(x) for x in time]
