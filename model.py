@@ -6,7 +6,7 @@ class Model:
 
     def __init__(self, prng_mode = "lfsr"):
         self.balance = 100
-        self.mise = 10
+        self.mise = Model.bet_values[0]
         self.case = 0
 
         self.prng = randomNumber.PRNG(prng_mode)

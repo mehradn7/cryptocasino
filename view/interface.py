@@ -4,6 +4,7 @@ import numpy
 from params import *
 import view.pocketbutton as pocketbutton
 import view.betbutton as betbutton
+import view.button as button
 import view.wheel as wheel
 
 # A class representing the window and all its content
@@ -17,7 +18,6 @@ class WindowManager:
         self.wheelAngle = 0
         self.arrow = pygame.transform.scale(pygame.image.load(image_arrow).convert_alpha(), (arrowSide*3 //2 ,arrowSide))
         self.pocket_sprites = pygame.sprite.Group()
-        # self.bet_sprites = pygame.sprite.Group()
         self.bet_sprites = []
         self.list_images_buttons_normal = []
         self.list_images_buttons_clicked = []
@@ -60,13 +60,16 @@ class WindowManager:
         for i in range(4):
             self.createBetButton(modele, modele.bet_values[i], i)            
 
+        # launch button
+        self.launch_button = button.Button(height + 5, 500, 246, 80, pygame.image.load(image_launchbutton).convert_alpha(),
+        pygame.image.load(image_launchbutton).convert_alpha(), pygame.image.load(image_launchbutton).convert_alpha())
 
         self.blitSideMenu(modele)
 
         pygame.display.flip()
 
     def blitSideMenu(self, modele):
-        self.window.blit(self.fond_sidemenu, (height,0))
+        self.window.blit(self.fond_sidemenu, (height, 0))
 
         # draw section titles
         font = pygame.font.SysFont("Stilton", 42)
@@ -79,9 +82,9 @@ class WindowManager:
         self.window.blit(caseLabel, (height + 80, 100))
 
         miseLabel = font.render("Bet", 1, textyellow)
-        self.window.blit(miseLabel, (height + 100, 340 ))
-        launchButton = pygame.image.load(image_launchbutton).convert_alpha()
-        self.window.blit(launchButton, (height + 5, 500))
+        self.window.blit(miseLabel, (height + 100, 340))
+
+        self.window.blit(self.launch_button.image, self.launch_button.rect)
 
         # draw pocket sprites
         self.pocket_sprites.draw(self.window)

@@ -46,10 +46,14 @@ class EventManager:
             else:
                 pygame.event.clear() # clear all events that happened while the wheel was rolling
                 self.state = "Roulette"
-                
+
             pygame.display.flip()
 
         if (event.type == pygame.MOUSEBUTTONDOWN):
+            if (self.windowManager.launch_button.rect.collidepoint(event.pos)):
+                event_kspace = pygame.event.Event(pygame.KEYDOWN)
+                event_kspace.key = pygame.K_SPACE
+                self.manageRoulette(event_kspace)
 
             # handle click to update the model (pocket_sprites)
             for pocket_button in self.windowManager.pocket_sprites.sprites():
@@ -67,7 +71,7 @@ class EventManager:
                 pocket_button.update_picture(self.modele)
             for bet_button in self.windowManager.bet_sprites:
                 bet_button.update_picture(self.modele)
-    
+
             # refresh view
             self.windowManager.pocket_sprites.draw(self.windowManager.window)
             for sprite in self.windowManager.bet_sprites:
