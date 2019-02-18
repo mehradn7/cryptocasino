@@ -6,6 +6,8 @@ class PRNG:
     def __init__(self, mode, seed = 5489):
         if (mode=="lfsr"):
             self.generator = lfsr.Lfsr()
+        elif (mode=="mt"):
+            self.generator = mersenneTwister.Mt(seed)
         else:
             self.generator = mersenneTwister.Mt(seed)
         self.precalculated = []

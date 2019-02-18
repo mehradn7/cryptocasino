@@ -34,9 +34,19 @@ def testRNG(mode="lfsr"):
         a = prng.randomNumber_4bits()
         print(utils.intToBits(a, 4))
 
+def testWriteOutput(mode="mt", nbOut = 8*624, filename = "demo1.txt"):
+    print("Writing values of RNG : "+mode)
+    prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
+
+    with open(filename, 'w') as filemt:
+        for i in range(nbOut):
+            filemt.write("{}\n".format(prng.randomNumber_4bits()))
+
+
 
 if __name__ == "__main__":
     # execute only if run as a script
     mainLoop("lfsr")
     #testRNG("lfsr")
     #testRNG("mersenne twister")
+    #testWriteOutput(nbOut=8*625)
