@@ -22,5 +22,5 @@ IMAGE_LAUNCHBUTTON = "images/launchbutton.png"
 
 IMAGES_BUTTONS_NORMAL = ["images/{}.png".format(i) for i in range(16)]
 IMAGES_BUTTONS_CLICKED = ["images/{}down.png".format(i) for i in range(16)]
-IMAGES_MISES_NORMAL = ["images/jeton1.png" for i in range(4)]
-IMAGES_MISES_CLICKED = ["images/jeton2.png" for i in range(4)]
+IMAGES_MISES_NORMAL = ["images/jeton{}.png".format(i) for i in [10, 20, 50, 100]]
+IMAGES_MISES_CLICKED = ["images/jeton{}light.png".format(i) for i in [10, 20, 50, 100]]
