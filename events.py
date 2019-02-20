@@ -98,9 +98,9 @@ class EventManager:
             if mode == "mt" or mode == "mt_truncated":
                 self.state = "FF"
 
-                nbOutputTarget = 624 * 8 -1
+                nbOutputTarget = 624 * 8
                 if mode == "mt_truncated":
-                    nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped) -1
+                    nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped)
 
                 f = open("demo_" + str(mode) + ".txt", "a+")
 
