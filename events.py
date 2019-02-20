@@ -27,11 +27,16 @@ class EventManager:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
 
-            self.model.compute_next_value()
-            print("Next", self.model.nextValue)
-            self.window_manager.roll(self.model)
-            self.model.play_turn()
-            self.model.bet = model.Model.bet_values[0]
+            self.model.compute_next_value() # compute next random pocket
+            self.window_manager.roll(self.model) # roll the roulette
+            
+            # write the value into a file
+            if self.model.prng.mode == "mt" or self.model.prng.mode == "mt_truncated":
+                f = open("demo_" + str(self.model.prng.mode) + ".txt", "a+")
+                f.write("{}\n".format(self.model.nextValue))
+                f.close()
+            self.model.play_turn() # update the game model
+            self.model.set_bet(model.Model.bet_values[0]) # set the selected bet to the minimal bet
             self.window_manager.blitSideMenu(self.model)
 
             # check if game is over

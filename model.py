@@ -23,7 +23,6 @@ class Model:
             self.balance += self.bet * 15
         else:
             self.balance -= self.bet
-        print("Balance :", self.balance)
 
     def compute_next_value(self):
         self.nextValue = self.prng.randomNumber_4bits()
