@@ -11,6 +11,7 @@ import view.wheel as wheel
 class WindowManager:
     def __init__(self):
         self.window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.main_menu = pygame.image.load(IMAGE_MAIN_MENU).convert_alpha()
         self.fond_casino = pygame.image.load(IMAGE_FOND_CASINO).convert()
         self.fond_roulette = pygame.image.load(IMAGE_FOND_ROULETTE).convert()
         self.fond_sidemenu = pygame.image.load(IMAGE_FOND_SIDEMENU).convert()
@@ -35,7 +36,7 @@ class WindowManager:
     def initMainMenu(self):
         pygame.display.set_caption(GAME_TITLE)
         self.window.blit(self.fond_casino, (0, 0))
-        #todo blit main menu image (press F1 to start)
+        self.window.blit(self.main_menu, (0, 0))
         pygame.display.flip()
 
     def createPocketButton(self, model, i, j):

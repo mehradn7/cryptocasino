@@ -24,11 +24,6 @@ class EventManager:
             self.window_manager.initSideMenu(self.model)
 
     def manageRoulette(self, event):
-        if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            self.state = "Menu"
-            self.window_manager.initMainMenu()
-            # BUG : REDESSINER LA ROUE CORRECTEMENT
-
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             self.state = "Rolling"
 

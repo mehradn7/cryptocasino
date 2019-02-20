@@ -13,6 +13,7 @@ BET_BUTTON_WIDTH = 55
 BET_BUTTON_HEIGHT = 55
 
 # Images
+IMAGE_MAIN_MENU = "images/accueil.png"
 IMAGE_FOND_CASINO = "images/casino.png"
 IMAGE_FOND_ROULETTE = "images/fondbleu.png"
 IMAGE_FOND_SIDEMENU = "images/tapis.png"
