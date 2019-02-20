@@ -102,13 +102,15 @@ class EventManager:
                 if mode == "mt_truncated":
                     nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped) -1
 
+                f = open("demo_" + str(mode) + ".txt", "a+")
+
                 while (self.model.prng.nbOutput < nbOutputTarget):
                     self.model.compute_next_value() # compute next random pocket
                     
                     # write the value into a file
-                    f = open("demo_" + str(mode) + ".txt", "a+")
                     f.write("{}\n".format(self.model.nextValue))
-                    f.close()
+                
+                f.close()
 
                 self.window_manager.blitSideMenu(self.model)
                 pygame.event.clear() # clear all events that happened while the wheel was rolling

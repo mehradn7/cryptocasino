@@ -45,7 +45,7 @@ def testWriteOutput(mode="mt", nbOut = 8*624, filename = "demo1.txt"):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    mainLoop("lfsr")
+    mainLoop("mt_truncated")
     #testRNG("lfsr")
     #testRNG("mersenne twister")
     #testWriteOutput(nbOut=8*625)
