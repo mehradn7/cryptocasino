@@ -13,6 +13,6 @@ class Lfsr:
     def getRandomNumber(self):
         # 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1
         numbers = []
-        for i in range(32):
+        for i in range(4):
             numbers.append(self.nextBit())
         return utils.bitToInt(numbers)

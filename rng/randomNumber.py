@@ -1,20 +1,38 @@
 import rng.lfsr as lfsr
 import rng.mersenneTwister as mersenneTwister
 import utils
+import random as r
 
 class PRNG:
-    def __init__(self, mode, seed = 5489):
+    def __init__(self, mode):
+        self.mode = mode
         if (mode=="lfsr"):
-            self.generator = lfsr.Lfsr()
-        elif (mode=="mt"):
-            self.generator = mersenneTwister.Mt(seed)
+            self.lfsr = lfsr.Lfsr()
+
         else:
-            self.generator = mersenneTwister.Mt(seed)
-        self.precalculated = []
+            self.nbOutput = 0
+            self.stored = 0
+
+    def randLFSR(self):
+        return self.lfsr.getRandomNumber()
+
+    def randMt(self, k = 0):
+        # k = nombre de sorties jetées
+        if ((self.nbOutput % (8 - k)) == 0):
+            self.stored = r.getrandbits(32)
+            self.stored = self.stored >> (4*k)
+        output = self.stored & 0xf
+        self.stored = self.stored >> 4
+        self.nbOutput += 1
+        return output
 
     def randomNumber_4bits(self):
-        if (self.precalculated == []):  # on calcule par paquets de 32 bits pour avoir une généralisation facile avec le mersenne twister
-            self.precalculated = utils.intToBits(self.generator.getRandomNumber(), 32)
-        n = utils.bitToInt(self.precalculated[0:4])
-        self.precalculated  = self.precalculated[4:]
-        return n
+        if (self.mode == "lfsr"):
+            return self.randLFSR()
+        elif(self.mode == "truncated"):
+            return self.randMt(k = 3)
+        else:
+            return self.randMt()
+
+
+    
