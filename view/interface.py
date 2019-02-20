@@ -74,7 +74,7 @@ class WindowManager:
         self.window.blit(self.fond_sidemenu, (WINDOW_HEIGHT, 0))
 
         # draw section titles
-        font = pygame.font.SysFont("Stilton", 42)
+        font = pygame.font.SysFont("Uroob", 42)
         textyellow = (242, 255, 0)
 
         gainsLabel = font.render("Balance : ${}".format(model.balance), 1, textyellow)
