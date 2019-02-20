@@ -42,6 +42,7 @@ class EventManager:
             # check if game is over
             if (self.model.balance <= 0):
                 print("GAME OVER")
+                self.window_manager.blitGameOver()
                 #to do restart game
             else:
                 pygame.event.clear() # clear all events that happened while the wheel was rolling
