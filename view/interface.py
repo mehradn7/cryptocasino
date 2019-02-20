@@ -35,6 +35,7 @@ class WindowManager:
     def initMainMenu(self):
         pygame.display.set_caption(GAME_TITLE)
         self.window.blit(self.fond_casino, (0, 0))
+        #todo blit main menu image (press F1 to start)
         pygame.display.flip()
 
     def createPocketButton(self, model, i, j):
@@ -129,3 +130,7 @@ class WindowManager:
             self.blitArrow()
             pygame.display.flip()
             pygame.time.wait(5)
+
+    def blitGameOver(self):
+        game_over_screen = pygame.transform.scale(pygame.image.load(IMAGE_GAME_OVER).convert_alpha(), (500, 500))
+        self.window.blit(game_over_screen, (WINDOW_HEIGHT/2 - 250, WINDOW_WIDTH/5))

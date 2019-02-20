@@ -19,6 +19,7 @@ IMAGE_FOND_SIDEMENU = "images/fondroge.png"
 IMAGE_WHEEL = "images/BruceWheelis.png"
 IMAGE_ARROW = "images/arrow.png"
 IMAGE_LAUNCHBUTTON = "images/launchbutton.png"
+IMAGE_GAME_OVER = "images/gameover.png"
 
 IMAGES_BUTTONS_NORMAL = ["images/{}.png".format(i) for i in range(16)]
 IMAGES_BUTTONS_CLICKED = ["images/{}down.png".format(i) for i in range(16)]
