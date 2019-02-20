@@ -7,17 +7,18 @@ class PRNG:
         self.mode = mode
         if (mode=="lfsr"):
             self.lfsr = lfsr.Lfsr()
-
+        if (mode=="mt_truncated"):
+            self.nbDropped = 3
         else:
-            self.nbOutput = 0
-            self.stored = 0
+            self.nbDropped = 0
+        self.nbOutput = 0
+        self.stored = 0
 
     def randLFSR(self):
         return self.lfsr.getRandomNumber()
 
-    def randMt(self, k = 0):
-        # k = nombre de sorties jetées
-        if ((self.nbOutput % (8 - k)) == 0):
+    def randMt(self):
+        if ((self.nbOutput % (8 - self.nbDropped)) == 0):
             self.stored = r.getrandbits(32)
         output = self.stored & 0xf
         self.stored = self.stored >> 4
@@ -27,8 +28,6 @@ class PRNG:
     def randomNumber_4bits(self):
         if (self.mode == "lfsr"):
             return self.randLFSR()
-        elif(self.mode == "mt_truncated"):
-            return self.randMt(k = 3)
         else:
             return self.randMt()
 

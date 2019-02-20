@@ -1,5 +1,4 @@
 import pygame
-
 import model
 
 # A class that manages all the events occuring throughout the game
@@ -92,3 +91,27 @@ class EventManager:
             # refresh view
             self.window_manager.pocket_sprites.draw(self.window_manager.window)
             pygame.display.flip()
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_t):
+            # Fast Forward     
+            mode = self.model.prng.mode        
+            if mode == "mt" or mode == "mt_truncated":
+                self.state = "FF"
+
+                nbOutputTarget = 624 * 8 -1
+                if mode == "mt_truncated":
+                    nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped) -1
+
+                while (self.model.prng.nbOutput < nbOutputTarget):
+                    self.model.compute_next_value() # compute next random pocket
+                    
+                    # write the value into a file
+                    f = open("demo_" + str(mode) + ".txt", "a+")
+                    f.write("{}\n".format(self.model.nextValue))
+                    f.close()
+
+                self.window_manager.blitSideMenu(self.model)
+                pygame.event.clear() # clear all events that happened while the wheel was rolling
+                self.state = "Roulette"
+
+                pygame.display.flip()
