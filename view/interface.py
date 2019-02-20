@@ -11,6 +11,8 @@ import view.wheel as wheel
 class WindowManager:
     def __init__(self):
         self.window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.font = pygame.font.SysFont("Uroob", 42)
+        self.small_font = pygame.font.SysFont("Uroob", 36)
         self.main_menu = pygame.image.load(IMAGE_MAIN_MENU).convert_alpha()
         self.fond_casino = pygame.image.load(IMAGE_FOND_CASINO).convert()
         self.fond_roulette = pygame.image.load(IMAGE_FOND_ROULETTE).convert()
@@ -75,17 +77,20 @@ class WindowManager:
         self.window.blit(self.fond_sidemenu, (WINDOW_HEIGHT, 0))
 
         # draw section titles
-        font = pygame.font.SysFont("Uroob", 42)
-        textyellow = (242, 255, 0)
 
-        gainsLabel = font.render("Balance : ${}".format(model.balance), 1, textyellow)
-        self.window.blit(gainsLabel, (WINDOW_HEIGHT + 20, 40))
+        gains_label = self.font.render("Balance : ${}".format(model.balance), 1, TEXT_COLOR)
+        self.window.blit(gains_label, (WINDOW_HEIGHT + 20, 40))
 
-        caseLabel = font.render("Pocket", 1, textyellow)
-        self.window.blit(caseLabel, (WINDOW_HEIGHT + 80, 100))
+        case_label = self.font.render("Pocket", 1, TEXT_COLOR)
+        self.window.blit(case_label, (WINDOW_HEIGHT + 80, 100))
 
-        miseLabel = font.render("Bet", 1, textyellow)
-        self.window.blit(miseLabel, (WINDOW_HEIGHT + 100, 340))
+        mise_label = self.font.render("Bet", 1, TEXT_COLOR)
+        self.window.blit(mise_label, (WINDOW_HEIGHT + 100, 340))
+
+        # draw current turn (only in mt and mt_truncated modes)
+        if model.prng.mode == "mt" or model.prng.mode == "mt_truncated":
+            current_turn_label = self.small_font.render("Current turn : {}".format(model.prng.nbOutput), 1, TEXT_COLOR)
+            self.window.blit(current_turn_label, (WINDOW_HEIGHT + 20, 600))
 
         # draw launch button
         self.window.blit(self.launch_button.image, self.launch_button.rect)

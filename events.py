@@ -104,9 +104,17 @@ class EventManager:
 
                 f = open("demo_" + str(mode) + ".txt", "a+")
 
+                #self.window_manager.simulate_fast_forward(self.model, nbOutputTarget)
+
                 while (self.model.prng.nbOutput < nbOutputTarget):
                     self.model.compute_next_value() # compute next random pocket
-                    
+                    self.window_manager.blitSideMenu(self.model)
+
+                    # do the increment animation
+                    if self.model.prng.nbOutput % 11 == 0:
+                        pygame.display.flip()
+                        pygame.time.wait(1)
+
                     # write the value into a file
                     f.write("{}\n".format(self.model.nextValue))
                 

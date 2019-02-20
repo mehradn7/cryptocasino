@@ -12,6 +12,8 @@ POCKET_BUTTON_HEIGHT = 35
 BET_BUTTON_WIDTH = 55
 BET_BUTTON_HEIGHT = 55
 
+TEXT_COLOR = (242, 255, 0)
+
 # Images
 IMAGE_MAIN_MENU = "images/accueil.png"
 IMAGE_FOND_CASINO = "images/casino.png"
