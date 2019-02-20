@@ -1,5 +1,4 @@
 import rng.lfsr as lfsr
-import rng.mersenneTwister as mersenneTwister
 import utils
 import random as r
 
@@ -20,7 +19,6 @@ class PRNG:
         # k = nombre de sorties jetées
         if ((self.nbOutput % (8 - k)) == 0):
             self.stored = r.getrandbits(32)
-            self.stored = self.stored >> (4*k)
         output = self.stored & 0xf
         self.stored = self.stored >> 4
         self.nbOutput += 1
@@ -29,7 +27,7 @@ class PRNG:
     def randomNumber_4bits(self):
         if (self.mode == "lfsr"):
             return self.randLFSR()
-        elif(self.mode == "truncated"):
+        elif(self.mode == "mt_truncated"):
             return self.randMt(k = 3)
         else:
             return self.randMt()
