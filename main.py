@@ -43,7 +43,6 @@ def testWriteOutput(mode="mt", nbOut = 8*624, filename = "demo1.txt"):
             filemt.write("{}\n".format(prng.randomNumber_4bits()))
 
 
-
 if __name__ == "__main__":
     # execute only if run as a script
     mainLoop("lfsr")
