@@ -59,8 +59,11 @@ class EventManager:
                 self.state = "Roulette"
 
             pygame.display.flip()
+        
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_t):
+            self.fast_forward()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             # handle click on launch button
             if self.window_manager.launch_button.rect.collidepoint(event.pos):
                 event_kspace = pygame.event.Event(pygame.KEYDOWN)
@@ -95,7 +98,7 @@ class EventManager:
 
             pygame.display.flip()
 
-        if event.type == pygame.MOUSEMOTION:
+        elif event.type == pygame.MOUSEMOTION:
             # handle click to update the model (pocket_sprites)
             for button in self.window_manager.pocket_sprites.sprites():  
                 if self.model.pocket != button.pocketNumber:
@@ -118,8 +121,6 @@ class EventManager:
                 nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped)
 
             f = open("demo_" + str(mode) + ".txt", "a+")
-
-            #self.window_manager.simulate_fast_forward(self.model, nbOutputTarget)
 
             while (self.model.prng.nbOutput < nbOutputTarget):
                 self.model.compute_next_value() # compute next random pocket
