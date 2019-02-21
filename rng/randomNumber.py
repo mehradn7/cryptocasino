@@ -30,6 +30,3 @@ class PRNG:
             return self.randLFSR()
         else:
             return self.randMt()
-
-
-    

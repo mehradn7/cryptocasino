@@ -94,6 +94,7 @@ class WindowManager:
         if model.prng.mode == "mt" or model.prng.mode == "mt_truncated":
             current_turn_label = self.small_font.render("Current turn : {}".format(model.prng.nbOutput), 1, TEXT_COLOR)
             self.window.blit(current_turn_label, (WINDOW_HEIGHT + 20, 700))
+            
             # draw fast forward button
             nbOutputTarget = 624 * 8
             if model.prng.mode == "mt_truncated":

@@ -111,8 +111,8 @@ class EventManager:
             self.window_manager.pocket_sprites.draw(self.window_manager.window)
             pygame.display.flip()
 
-    def fast_forward(self): # Fast Forward     
-        mode = self.model.prng.mode        
+    def fast_forward(self): # Fast Forward
+        mode = self.model.prng.mode
         if mode == "mt" or mode == "mt_truncated":
             self.state = "FF"
 
@@ -124,16 +124,29 @@ class EventManager:
 
             while (self.model.prng.nbOutput < nbOutputTarget):
                 self.model.compute_next_value() # compute next random pocket
-                self.window_manager.blitSideMenu(self.model)
-
-                # do the increment animation
-                if self.model.prng.nbOutput % 11 == 0:
+                
+                # do the increment animation on the counter AND on the wheel
+                if self.model.prng.nbOutput % 14 == 0:
+                    self.window_manager.window.blit(self.window_manager.fond_casino, (0, 0))
+                    self.window_manager.blitSideMenu(self.model)
+                    self.window_manager.wheel.change_angle(self.window_manager.wheel.angle + 10)
+                    self.window_manager.blitWheel()
+                    self.window_manager.blitArrow()
                     pygame.display.flip()
                     pygame.time.wait(1)
 
+                # last iteration : set the correct angle to the wheel
+                if self.model.prng.nbOutput == nbOutputTarget:
+                    self.window_manager.window.blit(self.window_manager.fond_casino, (0, 0))
+                    self.window_manager.blitSideMenu(self.model)
+                    self.window_manager.wheel.change_angle(((self.model.nextValue - 4)%16)* 360/16)
+                    self.window_manager.blitWheel()
+                    self.window_manager.blitArrow()
+                    pygame.display.flip()
+
                 # write the value into a file
                 f.write("{}\n".format(self.model.nextValue))
-            
+
             f.close()
 
             self.window_manager.blitSideMenu(self.model)
