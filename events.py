@@ -4,10 +4,10 @@ import model
 # A class that manages all the events occuring throughout the game
 class EventManager:
 
-    def __init__(self, window_manager, prngMode="lfsr"):
+    def __init__(self, window_manager):
         self.state = "Menu"
         self.window_manager = window_manager
-        self.model = model.Model(prngMode)
+        self.model = None
 
 
     def manageEvent(self, event):
@@ -16,11 +16,22 @@ class EventManager:
         if self.state == "Roulette":
             self.manageRoulette(event)
 
+
+    def startGame(self, prng):
+        self.model = model.Model(prng)
+        self.state = "Roulette"
+        self.window_manager.initRoulette()
+        self.window_manager.initSideMenu(self.model)
+
+
     def manageMenu(self, event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_F1):
-            self.state = "Roulette"
-            self.window_manager.initRoulette()
-            self.window_manager.initSideMenu(self.model)
+            self.startGame("lfsr")
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_F2):
+            self.startGame("mt")
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_F3):
+            self.startGame("mt_truncated")
+
 
     def manageRoulette(self, event):
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):

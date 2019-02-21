@@ -7,7 +7,7 @@ import view.interface as  interface
 import rng.randomNumber as randomNumber
 import utils
 
-def mainLoop(mode="lfsr"):
+def mainLoop():
     print("Init pygame mainloop")
     pygame.init()
 
@@ -15,7 +15,7 @@ def mainLoop(mode="lfsr"):
     clock = pygame.time.Clock()
     window_manager = interface.WindowManager()
     window_manager.initMainMenu()
-    event_manager = events.EventManager(window_manager, mode)
+    event_manager = events.EventManager(window_manager)
 
     while running:
         clock.tick(30)
@@ -45,7 +45,7 @@ def testWriteOutput(mode="mt", nbOut = 8*624, filename = "demo1.txt"):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    mainLoop("mt_truncated")
+    mainLoop()
     #testRNG("lfsr")
     #testRNG("mersenne twister")
     #testWriteOutput(nbOut=8*625)
