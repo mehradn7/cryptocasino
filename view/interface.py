@@ -28,6 +28,9 @@ class WindowManager:
         self.launch_button = button.Button(WINDOW_HEIGHT + 5, 500, 246, 80, pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(),
         pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(), pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha())
 
+        self.ff_button = button.Button(WINDOW_HEIGHT + 5, 750, 246, 80, pygame.image.load(IMAGE_FFBUTTON).convert_alpha(),
+        pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(), pygame.image.load(IMAGE_FFBUTTON).convert_alpha())
+
         for i in range(16):
             self.list_images_buttons_normal.append(pygame.transform.scale(pygame.image.load(IMAGES_BUTTONS_NORMAL[i]).convert_alpha(), (300, 200)))
             self.list_images_buttons_clicked.append(pygame.transform.scale(pygame.image.load(IMAGES_BUTTONS_CLICKED[i]).convert_alpha(), (300, 200)))
@@ -90,7 +93,13 @@ class WindowManager:
         # draw current turn (only in mt and mt_truncated modes)
         if model.prng.mode == "mt" or model.prng.mode == "mt_truncated":
             current_turn_label = self.small_font.render("Current turn : {}".format(model.prng.nbOutput), 1, TEXT_COLOR)
-            self.window.blit(current_turn_label, (WINDOW_HEIGHT + 20, 600))
+            self.window.blit(current_turn_label, (WINDOW_HEIGHT + 20, 700))
+            # draw fast forward button
+            nbOutputTarget = 624 * 8
+            if model.prng.mode == "mt_truncated":
+                nbOutputTarget = 1248 * (8 - model.prng.nbDropped)
+            if (model.prng.nbOutput < nbOutputTarget):
+                self.window.blit(self.ff_button.image, self.ff_button.rect)
 
         # draw launch button
         self.window.blit(self.launch_button.image, self.launch_button.rect)
@@ -103,6 +112,7 @@ class WindowManager:
             if sprite.betValue <= model.balance: # draw the bet sprite only if the player has sufficient money
                 sprite.update_picture(model)
                 self.window.blit(sprite.image, sprite.rect)
+
 
     def initRoulette(self):
         pygame.display.set_caption(GAME_TITLE)

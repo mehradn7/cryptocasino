@@ -22,6 +22,7 @@ IMAGE_FOND_SIDEMENU = "images/tapis.png"
 IMAGE_WHEEL = "images/BruceWheelis.png"
 IMAGE_ARROW = "images/arrow.png"
 IMAGE_LAUNCHBUTTON = "images/spin.png"
+IMAGE_FFBUTTON = "images/ff.png"
 IMAGE_GAME_OVER = "images/gameover.png"
 
 IMAGES_BUTTONS_NORMAL = ["images/{}.png".format(i) for i in range(16)]

@@ -61,10 +61,15 @@ class EventManager:
             pygame.display.flip()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
+            # handle click on launch button
             if self.window_manager.launch_button.rect.collidepoint(event.pos):
                 event_kspace = pygame.event.Event(pygame.KEYDOWN)
                 event_kspace.key = pygame.K_SPACE
                 self.manageRoulette(event_kspace)
+
+            # handle click on fast forward button
+            if self.window_manager.ff_button.rect.collidepoint(event.pos):
+                self.fast_forward()
 
             # handle click to update the model (pocket_sprites)
             for pocket_button in self.window_manager.pocket_sprites.sprites():
@@ -103,36 +108,35 @@ class EventManager:
             self.window_manager.pocket_sprites.draw(self.window_manager.window)
             pygame.display.flip()
 
-        if (event.type == pygame.KEYDOWN and event.key == pygame.K_t):
-            # Fast Forward     
-            mode = self.model.prng.mode        
-            if mode == "mt" or mode == "mt_truncated":
-                self.state = "FF"
+    def fast_forward(self): # Fast Forward     
+        mode = self.model.prng.mode        
+        if mode == "mt" or mode == "mt_truncated":
+            self.state = "FF"
 
-                nbOutputTarget = 624 * 8
-                if mode == "mt_truncated":
-                    nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped)
+            nbOutputTarget = 624 * 8
+            if mode == "mt_truncated":
+                nbOutputTarget = 1248 * (8 - self.model.prng.nbDropped)
 
-                f = open("demo_" + str(mode) + ".txt", "a+")
+            f = open("demo_" + str(mode) + ".txt", "a+")
 
-                #self.window_manager.simulate_fast_forward(self.model, nbOutputTarget)
+            #self.window_manager.simulate_fast_forward(self.model, nbOutputTarget)
 
-                while (self.model.prng.nbOutput < nbOutputTarget):
-                    self.model.compute_next_value() # compute next random pocket
-                    self.window_manager.blitSideMenu(self.model)
-
-                    # do the increment animation
-                    if self.model.prng.nbOutput % 11 == 0:
-                        pygame.display.flip()
-                        pygame.time.wait(1)
-
-                    # write the value into a file
-                    f.write("{}\n".format(self.model.nextValue))
-                
-                f.close()
-
+            while (self.model.prng.nbOutput < nbOutputTarget):
+                self.model.compute_next_value() # compute next random pocket
                 self.window_manager.blitSideMenu(self.model)
-                pygame.event.clear() # clear all events that happened while the wheel was rolling
-                self.state = "Roulette"
 
-                pygame.display.flip()
+                # do the increment animation
+                if self.model.prng.nbOutput % 11 == 0:
+                    pygame.display.flip()
+                    pygame.time.wait(1)
+
+                # write the value into a file
+                f.write("{}\n".format(self.model.nextValue))
+            
+            f.close()
+
+            self.window_manager.blitSideMenu(self.model)
+            pygame.event.clear() # clear all events that happened while the wheel was rolling
+            self.state = "Roulette"
+
+            pygame.display.flip()

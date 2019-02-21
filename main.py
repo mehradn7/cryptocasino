@@ -28,7 +28,7 @@ def mainLoop():
     print("Fin")
 
 def testRNG(mode="lfsr"):
-    print("Test of RNG : "+mode)
+    print("Test of RNG : " + mode)
     prng = randomNumber.PRNG(mode, random.SystemRandom().getrandbits(32))
     for i in range(10):
         a = prng.randomNumber_4bits()
