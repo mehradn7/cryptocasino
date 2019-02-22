@@ -1,5 +1,5 @@
 # Graphical parameters
-GAME_TITLE = "Crypto Casino"
+GAME_TITLE = "Wheel Of Misfortune"
 WINDOW_HEIGHT = 1024
 WINDOW_WIDTH = 1280
 WHEEL_DIAMETER = 950

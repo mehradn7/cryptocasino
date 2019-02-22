@@ -28,7 +28,7 @@ class WindowManager:
         self.launch_button = button.Button(WINDOW_HEIGHT + 5, 500, 246, 80, pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(),
         pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(), pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha())
 
-        self.ff_button = button.Button(WINDOW_HEIGHT + 5, 750, 246, 80, pygame.image.load(IMAGE_FFBUTTON).convert_alpha(),
+        self.ff_button = button.Button(WINDOW_HEIGHT + 5, 750, 246, 120, pygame.image.load(IMAGE_FFBUTTON).convert_alpha(),
         pygame.image.load(IMAGE_LAUNCHBUTTON).convert_alpha(), pygame.image.load(IMAGE_FFBUTTON).convert_alpha())
 
         for i in range(16):
