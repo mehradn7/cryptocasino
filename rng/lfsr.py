@@ -2,12 +2,12 @@ import utils
 
 class Lfsr:
     def __init__(self):
-        self.state = [1, 0, 1, 0, 0]
+        self.state = [0, 0, 1, 0, 1]
     
     def nextBit(self):
         next = (self.state[0] + self.state[1] + self.state[3]+ self.state[4])%2
-        self.state.append(next)
-        self.state = self.state[1:]
+        self.state = [next] + self.state
+        self.state = self.state[:-1]
         return next
 
     def getRandomNumber(self):
